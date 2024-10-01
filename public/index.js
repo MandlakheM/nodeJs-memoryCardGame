@@ -21,7 +21,7 @@ function renderCards() {
 }
 
 function flipCard() {
-  if (flippedCards.length === 2) return;
+//   if (flippedCards.length === 2) return;
   const index = parseInt(this.dataset.index);
   if (cards[index].matched || flippedCards.includes(index)) return;
 
@@ -34,7 +34,9 @@ function flipCard() {
   }
 }
 
+function checkMatch() {
 
+}
 
 document.getElementById("restart-btn").addEventListener("click", initGame);
 
