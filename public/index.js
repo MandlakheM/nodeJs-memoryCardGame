@@ -6,6 +6,7 @@ async function initGame() {
   const response = await fetch("/cards");
   cards = await response.json();
   renderCards();
+  document.getElementById('celebration-overlay').classList.remove('visible');
 }
 
 function renderCards() {
@@ -69,6 +70,7 @@ function checkMatch() {
 
 function celebrateWin() {
   const overlay = document.getElementById("celebration-overlay");
+  overlay.classList.add('visible');
   overlay.style.opacity = "1";
 
   confetti({
@@ -108,6 +110,6 @@ function celebrateWin() {
   }, 250);
 }
 
-document.getElementById("restart-btn").addEventListener("click", initGame);
+// document.getElementById("restart-btn").addEventListener("click", initGame);
 
 initGame();
