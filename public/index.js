@@ -21,7 +21,7 @@ function renderCards() {
 }
 
 function flipCard() {
-//   if (flippedCards.length === 2) return;
+  if (flippedCards.length === 2) return;
   const index = parseInt(this.dataset.index);
   if (cards[index].matched || flippedCards.includes(index)) return;
 
@@ -34,8 +34,41 @@ function flipCard() {
   }
 }
 
-function checkMatch() {
+function flipCard() {
+  if (flippedCards.length === 2) return;
+  const index = parseInt(this.dataset.index);
+  if (cards[index].matched || flippedCards.includes(index)) return;
 
+  this.classList.add('flipped');
+  this.style.backgroundImage = `url(${cards[index].image})`;
+  flippedCards.push(index);
+
+  if (flippedCards.length === 2) {
+      setTimeout(checkMatch, 1000);
+  }
+}
+
+function checkMatch() {
+  const [index1, index2] = flippedCards;
+  const card1 = cards[index1];
+  const card2 = cards[index2];
+
+  if (card1.id === card2.id) {
+      card1.matched = true;
+      card2.matched = true;
+      matchedPairs++;
+      if (matchedPairs === cards.length / 2) {
+          setTimeout(() => alert('Congratulations! You won!'), 500);
+      }
+  } else {
+      const flippedElements = document.querySelectorAll('.card.flipped:not([data-matched])');
+      flippedElements.forEach(element => {
+          element.classList.remove('flipped');
+          element.style.backgroundImage = '';
+      });
+  }
+
+  flippedCards = [];
 }
 
 document.getElementById("restart-btn").addEventListener("click", initGame);
